@@ -1,0 +1,46 @@
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir               = ./                
+certs             = $dir/certs
+crl_dir           = $dir/crl
+database          = $dir/index.txt
+new_certs_dir     = $dir/newcerts
+certificate       = $dir/certs/intermediate.crt
+serial            = $dir/serial
+crlnumber         = $dir/crlnumber
+private_key       = $dir/private/intermediate.key
+RANDFILE          = $dir/private/.rand
+default_days      = 1825
+default_md        = sha256
+preserve          = no
+policy            = policy_loose
+
+[ policy_loose ]
+commonName = supplied
+countryName = optional
+stateOrProvinceName = optional
+organizationName = optional
+organizationalUnitName = optional
+emailAddress = optional
+
+[ req ]
+default_bits        = 4096
+default_md          = sha256
+prompt              = no
+distinguished_name  = dn
+
+[ dn ]
+C = BR
+ST = Espirito Santo
+L = Vitoria
+O = storckCompany
+OU = PKI Intermediate CA
+CN = Minha CA Intermediária
+
+[ v3_intermediate_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, cRLSign, keyCertSign
